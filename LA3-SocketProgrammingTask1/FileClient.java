@@ -1,3 +1,4 @@
+
 /**
  * GROUP/PAIR MEMBERS:
  * Chua, Hanielle Jermayn E. (12305693)
@@ -7,24 +8,19 @@
 import java.net.*;
 import java.io.*;
 
-public class FileClient
-{
-	public static void main(String[] args)
-	{
+public class FileClient {
+	public static void main(String[] args) {
 		String sServerAddress = args[0];
 		int nPort = Integer.parseInt(args[1]);
-		
-		try
-		{
+
+		try {
+			System.out.println("Client: Connecting to server at " + sServerAddress + ":" + nPort + "...\n");
+
 			Socket clientEndpoint = new Socket(sServerAddress, nPort);
-			
-			System.out.println("Client: Connected to server at" + clientEndpoint.getRemoteSocketAddress());
-			
-			DataOutputStream dosWriter = new DataOutputStream(clientEndpoint.getOutputStream());
-			dosWriter.writeUTF("Client: Hello from client" + clientEndpoint.getLocalSocketAddress());
-			
+
+			System.out.println("Client: Connected to server at " + clientEndpoint.getRemoteSocketAddress() + "\n");
+
 			DataInputStream disReader = new DataInputStream(clientEndpoint.getInputStream());
-			System.out.println(disReader.readUTF());
 
 			// Receive file
 			long fileSize = disReader.readLong();
@@ -39,16 +35,12 @@ public class FileClient
 				totalRead += bytesRead;
 			}
 			fos.close();
-			
-			System.out.println("Client: Downloaded file \"Received.txt\"");
+
+			System.out.println("Client: Downloaded file \"Received.txt\"\n");
 			clientEndpoint.close();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		finally
-		{
+		} finally {
 			System.out.println("Client: Connection is terminated.");
 		}
 	}
