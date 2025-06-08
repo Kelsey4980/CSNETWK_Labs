@@ -29,6 +29,19 @@ public class FileServer
 			DataOutputStream dosWriter = new DataOutputStream(serverEndpoint.getOutputStream());
 			dosWriter.writeUTF("Server: Hello World!");
 
+			// Send file
+			File file = new File("Download.txt");
+			FileInputStream fis = new FileInputStream(file);
+			byte[] buffer = new byte[4096];
+			int bytesRead;
+
+			dosWriter.writeLong(file.length());
+			while ((bytesRead = fis.read(buffer)) != -1) {
+				dosWriter.write(buffer, 0, bytesRead);
+			}
+			fis.close();
+
+			System.out.println("Server: Sending file \"Download.txt\"");
 			serverEndpoint.close();
 		}
 		catch (Exception e)

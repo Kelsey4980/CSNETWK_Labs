@@ -25,7 +25,22 @@ public class FileClient
 			
 			DataInputStream disReader = new DataInputStream(clientEndpoint.getInputStream());
 			System.out.println(disReader.readUTF());
+
+			// Receive file
+			long fileSize = disReader.readLong();
+			FileOutputStream fos = new FileOutputStream("Received.txt");
+
+			byte[] buffer = new byte[4096];
+			int bytesRead;
+			long totalRead = 0;
+
+			while (totalRead < fileSize && (bytesRead = disReader.read(buffer)) != -1) {
+				fos.write(buffer, 0, bytesRead);
+				totalRead += bytesRead;
+			}
+			fos.close();
 			
+			System.out.println("Client: Downloaded file \"Received.txt\"");
 			clientEndpoint.close();
 		}
 		catch (Exception e)
