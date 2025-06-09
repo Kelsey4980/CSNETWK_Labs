@@ -35,7 +35,7 @@ public class FileServer {
 			}
 			fis.close();
 
-			System.out.println("Server: Sending file \"Download.txt\" (" + file.length() + ") bytes\n");
+			System.out.println("Server: Sending file \"Download.txt\" (" + file.length() + " bytes)\n");
 			serverEndpoint.close();
 		} catch (Exception e) {
 			e.printStackTrace();
