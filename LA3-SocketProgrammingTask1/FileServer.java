@@ -1,4 +1,3 @@
-
 /**
  * GROUP/PAIR MEMBERS:
  * Chua, Hanielle Jermayn E. (12305693)
@@ -8,20 +7,27 @@
 import java.net.*;
 import java.io.*;
 
-public class FileServer {
-	public static void main(String[] args) {
+public class FileServer
+{
+	public static void main(String[] args)
+	{
 		int nPort = Integer.parseInt(args[0]);
-		System.out.println("Server: Listening on port " + args[0] + "...\n");
+		System.out.println("Server: Listening on port " + args[0] + "...");
 		ServerSocket serverSocket;
 		Socket serverEndpoint;
 
-		try {
+		try 
+		{
 			serverSocket = new ServerSocket(nPort);
 			serverEndpoint = serverSocket.accept();
-
-			System.out.println("Server: New client connected: " + serverEndpoint.getRemoteSocketAddress() + "\n");
-
+			
+			System.out.println("Server: New client connected: " + serverEndpoint.getRemoteSocketAddress());
+			
+			DataInputStream disReader = new DataInputStream(serverEndpoint.getInputStream());
+			System.out.println(disReader.readUTF());
+			
 			DataOutputStream dosWriter = new DataOutputStream(serverEndpoint.getOutputStream());
+			dosWriter.writeUTF("Server: Hello World!");
 
 			// Send file
 			File file = new File("Download.txt");
@@ -35,11 +41,15 @@ public class FileServer {
 			}
 			fis.close();
 
-			System.out.println("Server: Sending file \"Download.txt\" (" + file.length() + " bytes)\n");
+			System.out.println("Server: Sending file \"Download.txt\"");
 			serverEndpoint.close();
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
-		} finally {
+		}
+		finally
+		{
 			System.out.println("Server: Connection is terminated.");
 		}
 	}
