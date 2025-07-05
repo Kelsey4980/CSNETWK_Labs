@@ -1,3 +1,7 @@
+# GROUP/PAIR MEMBERS:
+# Chua, Hanielle Jermayn E. (12305693)
+# Kelsey, Gabrielle Madison F. (12307572)
+
 # import socket module
 from socket import *
 import sys # In order to terminate the program
